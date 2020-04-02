@@ -21,14 +21,15 @@ const readIds = (path = 'aggregateIds.json'): string[] => {
   return parsed.aggregateIds
 }
 
-const data = 'my-data'
+const data =
+  '{"timestamp":1574948745568,"aggregateId":"b9js9t2y03s46shafuf2izsqqov0","aggregateVersion":1,"type":"DEPLOY_COMPLETED","payload":{"name":"my-test","stage":"prod","region":"eu-west-1","userId":"root@resolve.sh","version":"0.0","deploymentId":"b9js9t2y03s46shafuf2izsqqov0"}}'
 
 const encrypted: string[] = []
 
 export const execute = async (): Promise<void> => {
-  // generateIds(100)
+  // generateIds(1000)
 
-  const aggregateIds = readIds('aggregateIds-100.json')
+  const aggregateIds = readIds('aggregateIds-1000.json')
   console.log(aggregateIds.length)
 
   const time1 = new Date().getTime()
