@@ -22,3 +22,9 @@ export const decrypt = async (keySelector: string, blob: string): Promise<string
 }
 
 export const forget = (keySelector: string) => forgetKey(keySelector)
+
+export const test = async (count: number, data: string): Promise<void> => {
+  for (let i = 0; i < count; i++) {
+    const blob = await encryptAES256(generateKey(), data)
+  }
+}

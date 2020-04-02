@@ -1,8 +1,8 @@
 import { v4 as uuidv4 } from 'uuid'
 import fs from 'fs'
 
-import { encrypt, decrypt, forget } from './resolve-event-encryption-cloud'
-// import { encrypt, decrypt, forget } from './resolve-event-encryption-local'
+// import { encrypt, decrypt, forget, test } from './resolve-event-encryption-cloud'
+import { encrypt, decrypt, forget, test } from './resolve-event-encryption-local'
 
 import assert from 'assert'
 
@@ -29,6 +29,11 @@ const encrypted: string[] = []
 export const execute = async (): Promise<void> => {
   // generateIds(1000)
 
+/*   const time1 = new Date().getTime()
+  await test(100000, data)
+  const time2 = new Date().getTime()
+  console.log('encryption time, ms: ', time2 - time1) */
+
   const aggregateIds = readIds('aggregateIds-1000.json')
   console.log(aggregateIds.length)
 
@@ -52,7 +57,6 @@ export const execute = async (): Promise<void> => {
   const time3 = new Date().getTime()
 
   console.log('decryption time, ms: ', time3 - time2)
-
   /*
   for (let i = 0; i < aggregateIds.length; i++) {
     await forget(aggregateIds[i])

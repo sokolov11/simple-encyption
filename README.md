@@ -47,3 +47,10 @@ encryption time, ms:  663174
 encryption time, ms:  1854
 decryption time, ms:  1883
 ```
+
+### encryption only
+```
+100К
+encryption time, ms:  2839 (local)
+encryption time, ms:  6472 (cloud)
+```
