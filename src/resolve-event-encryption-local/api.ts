@@ -1,26 +1,43 @@
 import { v4 as uuidv4 } from 'uuid'
 import { Pool, Client } from 'pg'
 
+type LocalCredentials = {
+  user: string
+  host: string
+  database: string
+  password: string
+  port: 54320
+}
+
+type KeyRecord = {
+  id: string
+  key: string
+}
+
+type ExecutionResult = Promise<null | KeyRecord[]>
+
 // TODO: get credentials from somewhere
-const pool = new Pool({
+const localCredentials: LocalCredentials = {
   user: 'admin',
   host: 'localhost',
   database: 'testdb',
   password: 'admin',
   port: 54320
-})
+}
 
-const executeStatement = async (pool, sql) => {
+const pool = new Pool(localCredentials)
+
+const executeStatement = async (pool: Pool, sql: string): ExecutionResult => {
   const errors = []
   let rows = null
   const connection = new Client({
-    user: pool.options.user,
-    database: pool.options.database,
-    port: pool.options.port,
-    host: pool.options.host,
-    password: pool.options.password,
+    user: localCredentials.user,
+    database: localCredentials.database,
+    port: localCredentials.port,
+    host: localCredentials.host,
+    password: localCredentials.password,
     keepAlive: false,
-    connectionTimeoutMillis: 5000,
+    // connectionTimeoutMillis: 5000,
     idle_in_transaction_session_timeout: 5000,
     query_timeout: 5000,
     statement_timeout: 5000
@@ -51,28 +68,22 @@ const executeStatement = async (pool, sql) => {
   return rows
 }
 
-export const getKey = async (keyId: string): Promise<string> => {
+export const getKey = async (keyId: string): Promise<string | null> => {
   const queryResult = await executeStatement(
     pool,
     `SELECT * FROM public.keys WHERE "id"='${keyId}' LIMIT 1`
   )
-  if (queryResult.length) {
+  if (queryResult && queryResult.length) {
     return queryResult[0].key
   }
 
   return null
 }
 
-export const insertKey = async (
-  keyId: string,
-  keyValue: string
-): Promise<void> =>
-  executeStatement(
-    pool,
-    `INSERT INTO public.keys("id", "key") values ('${keyId}', '${keyValue}')`
-  )
+export const insertKey = async (keyId: string, keyValue: string): ExecutionResult =>
+  executeStatement(pool, `INSERT INTO public.keys("id", "key") values ('${keyId}', '${keyValue}')`)
 
-export const forgetKey = async (keyId: string): Promise<void> =>
+export const forgetKey = async (keyId: string): ExecutionResult =>
   executeStatement(pool, `DELETE FROM public.keys WHERE "id"='${keyId}'`)
 
 // TODO: generate proper key, not just random sequence

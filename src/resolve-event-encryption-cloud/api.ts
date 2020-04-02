@@ -10,15 +10,21 @@ CREATE TABLE "deployment-id".keys
 )
 */
 
-const database = process.env.RESOLVE_ES_DATABASE
-const tableName = process.env.RESOLVE_KEYS_TABLE || 'keys'
-const credentials = {
-  Region: process.env.AWS_REGION,
-  ResourceArn: process.env.RESOLVE_ES_CLUSTER_ARN,
-  SecretArn: process.env.RESOLVE_ES_SECRET_STORE_ARN
+type CloudCredentials = {
+  Region: string
+  ResourceArn: string
+  SecretArn: string
 }
 
-export const getKey = async (keyId: string): Promise<string> => {
+const database: string = process.env.RESOLVE_ES_DATABASE || 'rsai8qo76xe367ai56jzhz3j3sv1-dev'
+const tableName: string = process.env.RESOLVE_KEYS_TABLE || 'keys'
+const credentials: CloudCredentials = {
+  Region: process.env.AWS_REGION || '',
+  ResourceArn: process.env.RESOLVE_ES_CLUSTER_ARN || '',
+  SecretArn: process.env.RESOLVE_ES_SECRET_STORE_ARN || ''
+}
+
+export const getKey = async (keyId: string): Promise<string | null> => {
   const queryResult = await executeStatement({
     ...credentials,
     Sql: `SELECT * FROM "${database}".${tableName} WHERE "id"='${keyId}' LIMIT 1`
@@ -39,9 +45,7 @@ export const insertKey = async (
     Sql: `INSERT INTO "${database}".${tableName}("id", "key") values ('${keyId}', '${keyValue}')`
   })
 
-export const forgetKey = async (
-  keyId: string
-): Promise<Array<{ [key: string]: any }>> =>
+export const forgetKey = async (keyId: string): Promise<Array<{ [key: string]: any }>> =>
   executeStatement({
     ...credentials,
     Sql: `DELETE FROM "${database}".${tableName} WHERE "id"='${keyId}'`

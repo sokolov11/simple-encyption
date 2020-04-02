@@ -1,8 +1,8 @@
 import { v4 as uuidv4 } from 'uuid'
 import fs from 'fs'
 
-// import { encrypt, decrypt, forget, test } from './resolve-event-encryption-cloud'
-import { encrypt, decrypt, forget, test } from './resolve-event-encryption-local'
+// import { encrypt, decrypt, forget } from './resolve-event-encryption-cloud'
+import { encrypt, decrypt, forget } from './resolve-event-encryption-local'
 
 import assert from 'assert'
 
@@ -42,9 +42,9 @@ decryption time, ms:  797
 
 const data = 'my-data'
 
-const encrypted = []
+const encrypted: string[] = []
 
-const main = async (): Promise<void> => {
+export const execute = async (): Promise<void> => {
   // generateIds(100)
 
   const aggregateIds = readIds('aggregateIds-100.json')
@@ -80,4 +80,4 @@ const main = async (): Promise<void> => {
   // await test('00000000-0000-0000-0000-000000000001')
 }
 
-main()
+execute()

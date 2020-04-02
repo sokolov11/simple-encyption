@@ -1,11 +1,9 @@
+//@ts-ignore
 import { encrypt as encryptAES256, decrypt as decryptAES256 } from 'aes256'
 
 import { getKey, insertKey, forgetKey, generateKey } from './api'
 
-export const encrypt = async (
-  keySelector: string,
-  data: string
-): Promise<string> => {
+export const encrypt = async (keySelector: string, data: string): Promise<string> => {
   let keyValue = await getKey(keySelector)
   if (!keyValue) {
     keyValue = generateKey()
@@ -15,10 +13,7 @@ export const encrypt = async (
   return blob
 }
 
-export const decrypt = async (
-  keySelector: string,
-  blob: string
-): Promise<string> | null => {
+export const decrypt = async (keySelector: string, blob: string): Promise<string | null> => {
   const keyValue = await getKey(keySelector)
   if (keyValue) {
     return decryptAES256(keyValue, blob)
@@ -26,9 +21,4 @@ export const decrypt = async (
   return null
 }
 
-export const forget = keySelector => forgetKey(keySelector)
-
-export const test = async id => {
-  // await getKey(id)
-  // await insertKey(id, 'key1')
-}
+export const forget = (keySelector: string) => forgetKey(keySelector)

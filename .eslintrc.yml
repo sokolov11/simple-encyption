@@ -1,0 +1,19 @@
+extends:
+  - eslint:recommended
+  - airbnb-base
+  - plugin:prettier/recommended
+env:
+  es6: true
+  node: true
+  jest: true
+rules:
+  no-console: 'off'
+  no-plusplus: 'off'
+  no-param-reassign: ['error', { props: false }]
+  no-restricted-syntax: ['off', 'ForInStatement', 'ForOfStatement']
+  no-await-in-loop: 'off'
+  class-methods-use-this: 'off'
+  semi: 'off'
+  curly: ['error', 'all']
+  import/no-unresolved: ['error', { ignore: ['aws-sdk'] }]
+  linebreak-style: 'off'

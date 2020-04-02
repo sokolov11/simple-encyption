@@ -70,3 +70,5 @@ build
 *.db
 *.db-journal
 .idea
+
+lib
