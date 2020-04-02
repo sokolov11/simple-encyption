@@ -40,9 +40,9 @@ decryption time, ms:  607370
 
 10000
 encryption time, ms:  663174
-
-### encryption disabled:
-
+```
+### encryption disabled (cloud)
+```
 100
 encryption time, ms:  1854
 decryption time, ms:  1883
