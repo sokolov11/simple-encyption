@@ -1,8 +1,8 @@
 import { v4 as uuidv4 } from 'uuid'
 import fs from 'fs'
 
-// import { encrypt, decrypt, forget } from './resolve-event-encryption-cloud'
-import { encrypt, decrypt, forget } from './resolve-event-encryption-local'
+import { encrypt, decrypt, forget } from './resolve-event-encryption-cloud'
+// import { encrypt, decrypt, forget } from './resolve-event-encryption-local'
 
 import assert from 'assert'
 
@@ -20,25 +20,6 @@ const readIds = (path = 'aggregateIds.json'): string[] => {
   const parsed = JSON.parse(data.toString())
   return parsed.aggregateIds
 }
-/*
-
-local performance:
-
-10000
-encryption time, ms:  153743 (with keys generation)
-decryption time, ms:  75331
-
-encryption time, ms:  75187
-decryption time, ms:  76490
-
-100
-encryption time, ms:  1622 (with keys generation)
-decryption time, ms:  782
-
-encryption time, ms:  829
-decryption time, ms:  797
-
-*/
 
 const data = 'my-data'
 
