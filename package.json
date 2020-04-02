@@ -1,0 +1,43 @@
+{
+  "name": "simple-encryption",
+  "version": "0.23.2",
+  "description": "simple wrapper for encryption adapter",
+  "private": true,
+  "scripts": {
+    "type-check": "tsc",
+    "build": "tsc && babel-node --extensions='.ts,.tsx' run.ts build",
+    "dev": "tsc && babel-node --extensions='.ts,.tsx' run.ts dev",
+    "start": "tsc && babel-node --extensions='.ts,.tsx' run.ts start",
+    "test": "jest --testMatch=**/test/unit/*.test.js --verbose",
+    "test:functional": "tsc && babel-node --extensions='.ts,.tsx' run.ts test:functional",
+    "docker:postgres": "docker run --name postgres -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=admin -e POSTGRES_DB=postgres -d -p 54320:5432 postgres:10.7",
+    "docker:psql": "docker exec -it postgres psql -U admin postgres"
+  },
+  "dependencies": {
+    "@babel/node": "^7.5.5",
+    "@babel/polyfill": "^7.4.4",
+    "@babel/preset-typescript": "^7.8.3",
+    "@types/node": "^12.7.4",
+    "aes256": "^1.0.4",
+    "babel-loader": "^8.0.6",
+    "fs": "^0.0.1-security",
+    "pg": "^8.0.0",
+    "resolve-cloud-common": "^0.0.15",
+    "typescript": "^3.3.4000",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-export-default-from": "^7.5.2",
+    "@babel/plugin-proposal-export-namespace-from": "^7.5.2",
+    "@babel/plugin-transform-runtime": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "7.0.0",
+    "babel-jest": "25.1.0",
+    "jest": "25.1.0",
+    "react-test-renderer": "16.13.0",
+    "resolve-cloud": "*",
+    "testcafe": "1.8.3"
+  }
+}
