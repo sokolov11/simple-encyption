@@ -50,7 +50,8 @@ export const execute = async (): Promise<void> => {
 
   for (let i = 0; i < aggregateIds.length; i++) {
     const keySelector = aggregateIds[i]
-    const resultDecrypted = await decrypt(keySelector, encrypted[i])
+    const decryptor = await decrypt(keySelector)
+    const resultDecrypted = decryptor ? decryptor(encrypted[i]) : null
     assert.equal(resultDecrypted, data)
   }
 
