@@ -9,8 +9,7 @@
     "build": "tsc && babel-node --extensions='.ts,.tsx' ./src/handler.ts build",
     "dev": "tsc && babel-node --extensions='.ts,.tsx' ./src/handler.ts dev",
     "start": "tsc && babel-node --extensions='.ts,.tsx' ./src/handler.ts start",
-    "test": "jest --testMatch=**/test/unit/*.test.js --verbose",
-    "test:functional": "tsc && babel-node --extensions='.ts,.tsx' ./src/handler.ts test:functional",
+    "test": "jest --verbose",
     "docker:postgres": "docker run --name postgres -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=admin -e POSTGRES_DB=postgres -d -p 54320:5432 postgres:10.7",
     "docker:psql": "docker exec -it postgres psql -U admin postgres"
   },
@@ -18,6 +17,7 @@
     "@babel/node": "^7.5.5",
     "@babel/polyfill": "^7.4.4",
     "@babel/preset-typescript": "^7.8.3",
+    "@types/jest": "^25.2.1",
     "@types/node": "^12.7.4",
     "@types/pg": "^7.14.3",
     "@types/uuid": "^7.0.2",
@@ -41,6 +41,20 @@
     "jest": "25.1.0",
     "react-test-renderer": "16.13.0",
     "resolve-cloud": "*",
-    "testcafe": "1.8.3"
+    "testcafe": "1.8.3",
+    "ts-jest": "^25.3.1"
+  },
+  "jest": {
+    "verbose": true,
+    "testEnvironment": "node",
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testMatch": [
+      "**/test/**/*.test.[jt]s?(x)"
+    ],
+    "roots": [
+      "<rootDir>"
+    ]
   }
 }
